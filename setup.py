@@ -1,16 +1,14 @@
 from setuptools import setup, find_packages
 requirements = [
-    'scipy==1.5.4',
-    'simpy>=4',
-    'networkx==2.4',
-    'geopy',
-    'pyyaml>=5.1',
-    'numpy>=1.16.5,<=1.19.5',
+    'scipy==1.10.0',
+    'simpy==4.0.1',
+    'networkx==3.0',
+    'geopy==2.3.0',
+    'PyYAML==6.0',
+    'numpy==1.24.2',
     'common-utils',
-    'scikit-learn',
-    'pandas==1.1.5',
-    'tensorflow==1.14.0',
-    'keras==2.2.5',
+    'scikit-learn==1.2.1',
+    'pandas==1.5.3',
     'matplotlib',
 ]
 

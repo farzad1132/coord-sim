@@ -12,8 +12,8 @@ import simpy
 from spinterface import SimulatorAction, SimulatorInterface, SimulatorState
 from coordsim.writer.writer import ResultWriter
 from coordsim.trace_processor.trace_processor import TraceProcessor
-from coordsim.traffic_predictor.traffic_predictor import TrafficPredictor
-from coordsim.traffic_predictor.lstm_predictor import LSTM_Predictor
+#from coordsim.traffic_predictor.traffic_predictor import TrafficPredictor
+#from coordsim.traffic_predictor.lstm_predictor import LSTM_Predictor
 from coordsim.controller import *
 
 logger = logging.getLogger(__name__)
@@ -40,9 +40,9 @@ class Simulator(SimulatorInterface):
             copyfile(trace_path, os.path.join(self.result_base_path, os.path.basename(trace_path)))
 
         self.prediction = False
-        # Check if future ingress traffic setting is enabled
+        """ # Check if future ingress traffic setting is enabled
         if 'future_traffic' in self.config and self.config['future_traffic']:
-            self.prediction = True
+            self.prediction = True """
         self.params = SimulatorParams(logger, self.network, self.ing_nodes, self.eg_nodes, self.sfc_list, self.sf_list,
                                       self.config, self.metrics, prediction=self.prediction)
         write_schedule = False
@@ -63,9 +63,9 @@ class Simulator(SimulatorInterface):
             self.trace = reader.get_trace(trace_path)
 
         self.lstm_predictor = None
-        if 'lstm_prediction' in self.config and self.config['lstm_prediction']:
+        """ if 'lstm_prediction' in self.config and self.config['lstm_prediction']:
             self.lstm_predictor = LSTM_Predictor(self.trace, params=self.params,
-                                                 weights_dir=self.config['lstm_weights'])
+                                                 weights_dir=self.config['lstm_weights']) """
 
     def __del__(self):
         # write dropped flow locs to yaml
@@ -73,8 +73,8 @@ class Simulator(SimulatorInterface):
 
     def init(self, seed):
         # Reset predictor class at beginning of every init
-        if self.prediction:
-            self.predictor = TrafficPredictor(self.params, self.lstm_predictor)
+        """ if self.prediction:
+            self.predictor = TrafficPredictor(self.params, self.lstm_predictor) """
         # increment episode count
         self.episode += 1
         self.params.episode += 1
@@ -262,3 +262,4 @@ if __name__ == "__main__":
     # FIXME: this currently breaks - negative flow counter?
     #  should be possible to have an empty action and just drop all flows!
     state = sim.apply(dummy_action)
+    
